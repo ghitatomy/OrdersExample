@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
 import com.example.gheorghetomoiaga.ordersexample.R;
 import com.example.gheorghetomoiaga.ordersexample.adapters.OrderAdapter;
@@ -36,6 +37,7 @@ public class OrdersActivity extends AppCompatActivity implements OrdersView, Ord
         setContentView(R.layout.activity_orders);
         ordersPresenter = new OrdersPresenter(this);
         attachAdapter();
+        addBackButton();
     }
 
     @Override
@@ -96,5 +98,18 @@ public class OrdersActivity extends AppCompatActivity implements OrdersView, Ord
         Intent intent = new Intent(OrdersActivity.this, OrderDetailsActivity.class);
         intent.putExtra(ORDER_DETAIL , selectedOrder);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addBackButton() {
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 }

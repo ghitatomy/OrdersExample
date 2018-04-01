@@ -3,6 +3,7 @@ package com.example.gheorghetomoiaga.ordersexample.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +20,18 @@ public class OrderDetailsActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
+        addBackButton();
+        setUpViews();
+    }
+
+    private void addBackButton() {
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+    }
+
+    private void setUpViews(){
         Intent intent = getIntent();
         Order order = (Order) intent.getSerializableExtra(OrdersActivity.ORDER_DETAIL);
         initViews();
@@ -42,4 +55,11 @@ public class OrderDetailsActivity extends AppCompatActivity{
         flowerPrice.setText("$"+Double.toString(order.getPrice()));
         orderDescription.setText(order.getDescription());
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return super.onOptionsItemSelected(item);
+    }
+
 }
