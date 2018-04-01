@@ -14,6 +14,8 @@ public class OrdersPresenter {
 
     public OrdersPresenter(OrdersView view){
         this.attachView(view);
+        initManager();
+        getOrders();
     }
 
     private void initManager(){
@@ -40,11 +42,11 @@ public class OrdersPresenter {
         this.view.hideLoading();
     }
 
-    public void receiveOrdersSucces(List<Order> orders) {
-
+    public void receiveOrdersSuccess(List<Order> orders) {
+        this.view.getDataSuccess(orders);
     }
 
-    public void receiveOrdersFailed(String message) {
-
+    public void receiveOrdersFailed(String errorMessage) {
+        this.view.getDataFail(errorMessage);
     }
 }

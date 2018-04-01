@@ -17,6 +17,9 @@ public class Order {
     @SerializedName("deliver_to")
     private String deliverTo;
 
+    @SerializedName("photo")
+    private String photo;
+
     public Integer getId() {
         return id;
     }
@@ -49,5 +52,12 @@ public class Order {
         this.deliverTo = deliverTo;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }
 

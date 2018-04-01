@@ -24,6 +24,8 @@ public class OrdersManager {
     public void getOrders(){
         Observable<List<Order>> orderObserver = orderService.getOrders(AUTHORIZATION);
 
+        this.ordersPresenter.startLoading();
+
         orderObserver.subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -41,7 +43,7 @@ public class OrdersManager {
 
                     @Override
                     public void onNext(List<Order> orders) {
-                        ordersPresenter.receiveOrdersSucces(orders);
+                        ordersPresenter.receiveOrdersSuccess(orders);
                         ordersPresenter.stopLoading();
                     }
                 });
