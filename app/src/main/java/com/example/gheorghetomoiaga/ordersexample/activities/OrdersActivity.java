@@ -2,6 +2,8 @@ package com.example.gheorghetomoiaga.ordersexample.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,6 +20,12 @@ import java.util.List;
 
 
 public class OrdersActivity extends AppCompatActivity implements OrdersView, OrderAdapter.OrderClickListener {
+    private static final String OK_TITLE = "OK";
+    private static final String PROGRESS_MESSAGE = "Loading. Please wait...";
+    private static final String ERROR_TITLE = "Error";
+    private static final String ERROR_MESSAGE = "Please try again later!";
+    public static final String ORDER_DETAIL = "order_detail";
+
     private OrdersPresenter ordersPresenter;
     private OrderAdapter adapter;
     private ProgressDialog progressDialog;
@@ -40,8 +48,8 @@ public class OrdersActivity extends AppCompatActivity implements OrdersView, Ord
 
     @Override
     public void showLoading() {
-        progressDialog = ProgressDialog.show(OrdersActivity.this, "",
-                "Loading. Please wait...", true);
+        progressDialog = ProgressDialog.show(OrdersActivity.this, "", PROGRESS_MESSAGE
+                , true);
         progressDialog.setCanceledOnTouchOutside(false);
     }
 
@@ -61,7 +69,14 @@ public class OrdersActivity extends AppCompatActivity implements OrdersView, Ord
     public void getDataFail(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message)
-                .setTitle("Error");
+                .setTitle(ERROR_TITLE)
+                .setMessage(ERROR_MESSAGE)
+                .setPositiveButton(OK_TITLE, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -78,6 +93,8 @@ public class OrdersActivity extends AppCompatActivity implements OrdersView, Ord
     @Override
     public void onClick(int position){
         Order selectedOrder = adapter.getSelectedOrder(position);
-        //Move To Details
+        Intent intent = new Intent(OrdersActivity.this, OrderDetailsActivity.class);
+        intent.putExtra(ORDER_DETAIL , selectedOrder);
+        startActivity(intent);
     }
 }

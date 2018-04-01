@@ -40,7 +40,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
         Picasso.with(holder.itemView.getContext())
                 .load("http://services.hanselandpetal.com/photos/" + currentOrder.getPhoto())
-                .into(holder.mPhoto);
+                .into(holder.flowerPhoto);
     }
 
     @Override
@@ -58,14 +58,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView mPhoto;
+        public ImageView flowerPhoto;
         public TextView personName, flowerPrice;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            mPhoto = (ImageView) itemView.findViewById(R.id.imageView);
-            personName = (TextView) itemView.findViewById(R.id.headingView);
-            flowerPrice = (TextView) itemView.findViewById(R.id.priceView);
+            flowerPhoto = itemView.findViewById(R.id.imageView);
+            personName = itemView.findViewById(R.id.headingView);
+            flowerPrice = itemView.findViewById(R.id.priceView);
             itemView.setOnClickListener(this);
         }
 
