@@ -43,7 +43,7 @@ public class OrdersActivity extends AppCompatActivity implements OrdersView, Ord
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ordersPresenter.dettachView();
+        ordersPresenter.detachView();
         ordersPresenter = null;
         progressDialog = null;
     }

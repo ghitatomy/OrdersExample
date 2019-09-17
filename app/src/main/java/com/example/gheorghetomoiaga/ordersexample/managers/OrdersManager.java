@@ -1,5 +1,6 @@
 package com.example.gheorghetomoiaga.ordersexample.managers;
 
+import android.annotation.SuppressLint;
 import com.example.gheorghetomoiaga.ordersexample.api.ApiClient;
 import com.example.gheorghetomoiaga.ordersexample.models.Order;
 import com.example.gheorghetomoiaga.ordersexample.presenters.OrdersPresenter;
@@ -7,46 +8,37 @@ import com.example.gheorghetomoiaga.ordersexample.services.OrdersService;
 
 import java.util.List;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class OrdersManager {
-    private static final String AUTHORIZATION ="gNbptNL8Qw";
     private OrdersService orderService = ApiClient.getOrderApiClient().create(OrdersService.class);
     private OrdersPresenter ordersPresenter;
 
     public OrdersManager(OrdersPresenter ordersPresenter){
         this.ordersPresenter = ordersPresenter;
     }
+
+    @SuppressLint("CheckResult")
     public void getOrders(){
-        Observable<List<Order>> orderObserver = orderService.getOrders(AUTHORIZATION);
-
+        Observable<List<Order>> ordersObservable = orderService.getOrders();
         this.ordersPresenter.startLoading();
-
-        orderObserver.subscribeOn(Schedulers.newThread())
-                .observeOn(Schedulers.io())
+        ordersObservable
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<Order>>() {
-                    @Override
-                    public void onCompleted() {
-                        ordersPresenter.stopLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ordersPresenter.receiveOrdersFailed(e.getMessage());
-                        ordersPresenter.stopLoading();
-                    }
-
-                    @Override
-                    public void onNext(List<Order> orders) {
-                        ordersPresenter.receiveOrdersSuccess(orders);
-                        ordersPresenter.stopLoading();
-                    }
-                });
+                .doOnComplete(() -> this.ordersPresenter.stopLoading())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        orders -> {
+                            ordersPresenter.receiveOrdersSuccess(orders);
+                            ordersPresenter.stopLoading();
+                            },
+                        throwable -> {
+                            ordersPresenter.receiveOrdersFailed(throwable.getMessage());
+                            ordersPresenter.stopLoading();
+                        });
 
     }
 }

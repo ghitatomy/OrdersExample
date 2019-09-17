@@ -17,10 +17,10 @@ public class Order implements Serializable{
     private Integer price;
 
     @SerializedName("deliver_to")
-    private String deliverTo;
+    private String deliver_to;
 
-    @SerializedName("photo")
-    private String photo;
+    @SerializedName("picture")
+    private String picture;
 
     public Integer getId() {
         return id;
@@ -46,20 +46,20 @@ public class Order implements Serializable{
         this.price = price;
     }
 
-    public String getDeliverTo() {
-        return deliverTo;
+    public String getDeliver_to() {
+        return deliver_to;
     }
 
-    public void setDeliverTo(String deliverTo) {
-        this.deliverTo = deliverTo;
+    public void setDeliver_to(String deliver_to) {
+        this.deliver_to = deliver_to;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }
 

@@ -26,7 +26,7 @@ public class OrdersPresenter {
         this.view = view;
     }
 
-    public void dettachView() {
+    public void detachView() {
         this.view = null;
     }
 

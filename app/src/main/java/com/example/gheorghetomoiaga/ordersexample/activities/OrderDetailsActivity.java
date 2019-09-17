@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.gheorghetomoiaga.ordersexample.R;
 import com.example.gheorghetomoiaga.ordersexample.models.Order;
-import com.squareup.picasso.Picasso;
+import com.example.gheorghetomoiaga.ordersexample.utils.Utils;
 
 
 public class OrderDetailsActivity extends AppCompatActivity{
@@ -47,12 +47,10 @@ public class OrderDetailsActivity extends AppCompatActivity{
     }
 
     private void renderViews(Order order){
-        Picasso.with(this)
-                .load("http://services.hanselandpetal.com/photos/" + order.getPhoto())
-                .into(flowerPhoto);
-        personName.setText(order.getDeliverTo());
+        flowerPhoto.setImageBitmap(Utils.getBitmapByEncodedString(order.getPicture()));
+        personName.setText(order.getDeliver_to());
         orderId.setText(Double.toString(order.getId()));
-        flowerPrice.setText("$"+Double.toString(order.getPrice()));
+        flowerPrice.setText("$"+ order.getPrice());
         orderDescription.setText(order.getDescription());
     }
 
@@ -63,3 +61,4 @@ public class OrderDetailsActivity extends AppCompatActivity{
     }
 
 }
+

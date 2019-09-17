@@ -1,5 +1,6 @@
 package com.example.gheorghetomoiaga.ordersexample.adapters;
 
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.gheorghetomoiaga.ordersexample.R;
 import com.example.gheorghetomoiaga.ordersexample.models.Order;
-import com.squareup.picasso.Picasso;
+import com.example.gheorghetomoiaga.ordersexample.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +36,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Order currentOrder = orders.get(position);
-        holder.personName.setText(currentOrder.getDeliverTo());
-        holder.flowerPrice.setText(Double.toString(currentOrder.getPrice())+"$");
-
-        Picasso.with(holder.itemView.getContext())
-                .load("http://services.hanselandpetal.com/photos/" + currentOrder.getPhoto())
-                .into(holder.flowerPhoto);
+        holder.personName.setText(currentOrder.getDeliver_to());
+        holder.flowerPrice.setText(currentOrder.getPrice()+" $");
+        holder.flowerPhoto.setImageBitmap(Utils.getBitmapByEncodedString(currentOrder.getPicture()));
     }
 
     @Override
