@@ -56,10 +56,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView flowerPhoto;
-        public TextView personName, flowerPrice;
+        private ImageView flowerPhoto;
+        private TextView personName, flowerPrice;
 
-        public MyViewHolder(View itemView) {
+        private MyViewHolder(View itemView) {
             super(itemView);
             flowerPhoto = itemView.findViewById(R.id.imageView);
             personName = itemView.findViewById(R.id.headingView);

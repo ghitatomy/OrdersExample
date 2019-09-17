@@ -2,7 +2,6 @@ package com.example.gheorghetomoiaga.ordersexample.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -73,12 +72,7 @@ public class OrdersActivity extends AppCompatActivity implements OrdersView, Ord
         builder.setMessage(message)
                 .setTitle(ERROR_TITLE)
                 .setMessage(ERROR_MESSAGE)
-                .setPositiveButton(OK_TITLE, new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                });
+                .setPositiveButton(OK_TITLE, (dialogInterface, i) -> finish());
         AlertDialog dialog = builder.create();
         dialog.show();
     }
