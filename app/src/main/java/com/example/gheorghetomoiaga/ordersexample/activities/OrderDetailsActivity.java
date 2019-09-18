@@ -49,8 +49,8 @@ public class OrderDetailsActivity extends AppCompatActivity{
     private void renderViews(Order order){
         flowerPhoto.setImageBitmap(Utils.getBitmapByEncodedString(order.getPicture()));
         personName.setText(order.getDeliver_to());
-        orderId.setText(Double.toString(order.getId()));
-        flowerPrice.setText("$"+ order.getPrice());
+        orderId.setText(String.valueOf(order.getId()));
+        flowerPrice.setText(order.getPrice() + " $");
         orderDescription.setText(order.getDescription());
     }
 
